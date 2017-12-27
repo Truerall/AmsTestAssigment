@@ -7,4 +7,30 @@ import android.app.Application;
  */
 
 public class App extends Application {
+
+    private static App instance;
+    AppComponent appComponent;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        instance = this;
+
+        initAppComponent();
+    }
+
+    public static App getInstance() {
+        return instance;
+    }
+
+    private void initAppComponent() {
+        appComponent = DaggerAppComponent.builder()
+                .appModule(new AppModule(this))
+                .build();
+        appComponent.inject(this);
+    }
+
+    public AppComponent getAppComponent() {
+        return appComponent;
+    }
 }

@@ -5,5 +5,5 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.assigment.ams.amstestassigment.presentation.MainScreen.UsersListActivity">
+    tools:context="com.assigment.ams.amstestassigment.presentation.main_screen.UsersListActivity">
 </FrameLayout>

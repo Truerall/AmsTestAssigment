@@ -9,4 +9,4 @@
         app:title="@string/app_name"
         app:titleTextColor="@color/colorAccent"
         android:background="@color/colorPrimary"
-        tools:context="com.assigment.ams.amstestassigment.presentation.MainScreen.UsersListActivity"/>
+        tools:context="com.assigment.ams.amstestassigment.presentation.main_screen.UsersListActivity"/>
