@@ -5,6 +5,7 @@ import com.assigment.ams.amstestassigment.data.repository.api.UsersApiService;
 import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import io.reactivex.Single;
@@ -35,7 +36,11 @@ public class UsersRepository {
                 .flatMap(response -> Single.fromCallable(() -> {
                     usersList = response.getUsersArrayList();
                     return response.getUsersArrayList();
-                }));
+                }))
+                .map(users -> {
+                    Collections.sort(users, (o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()));
+                    return users;
+                });
         single.subscribe(observer);
         return single;
     }
