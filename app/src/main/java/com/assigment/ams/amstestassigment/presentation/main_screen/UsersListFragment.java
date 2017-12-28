@@ -12,8 +12,12 @@ import android.view.ViewGroup;
 
 import com.assigment.ams.amstestassigment.App;
 import com.assigment.ams.amstestassigment.R;
+import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenComponent;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenModule;
+import com.assigment.ams.amstestassigment.utils.Utils;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public class UsersListFragment extends Fragment {
+public class UsersListFragment extends Fragment implements UsersListContract.View {
 
     @BindView(R.id.rv_main)
     RecyclerView recyclerView;
@@ -62,7 +66,7 @@ public class UsersListFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        usersListPresenter.start(view);// TODO this contract
+        usersListPresenter.start(this);
     }
 
 
@@ -72,5 +76,28 @@ public class UsersListFragment extends Fragment {
         super.onDestroyView();
         usersListPresenter.stop();
         unbinder.unbind();
+    }
+
+    @Override
+    public void setData(List<User> data) {
+        Utils.DBG("setData success");
+        for (User user : data) {
+            Utils.DBG(user.getImgUrl());
+        }
+    }
+
+    @Override
+    public void onError() {
+
+    }
+
+    @Override
+    public void showEmptyState() {
+
+    }
+
+    @Override
+    public void showProgress() {
+
     }
 }

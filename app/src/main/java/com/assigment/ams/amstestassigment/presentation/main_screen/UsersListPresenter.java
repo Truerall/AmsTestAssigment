@@ -1,12 +1,11 @@
 package com.assigment.ams.amstestassigment.presentation.main_screen;
 
-import android.view.View;
+import android.support.annotation.NonNull;
 
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;
-import com.assigment.ams.amstestassigment.utils.Utils;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.observers.DisposableSingleObserver;
 
@@ -14,37 +13,39 @@ import io.reactivex.observers.DisposableSingleObserver;
  * Created by truerall on 12/28/17.
  */
 
-public class UsersListPresenter {
+public class UsersListPresenter implements UsersListContract.Presenter {
 
     private UsersRepository usersRepository;
-    private View view;
+    private UsersListContract.View view;
 
     public UsersListPresenter(UsersRepository usersRepository) {
         this.usersRepository = usersRepository;
     }
 
-    public void start(View view){
+    public void start(@NonNull UsersListContract.View view) {
         this.view = view;
         getData();
     }
 
-    public void stop(){
+    public void stop() {
         this.view = null;
     }
 
-    private void getData(){
-        usersRepository.getUsersList(new DisposableSingleObserver<ArrayList<User>>() {
+    @Override
+    public void getData() {
+        view.showProgress();
+        usersRepository.getUsersList(new DisposableSingleObserver<List<User>>() {
             @Override
-            public void onSuccess(ArrayList<User> users) {
-                Utils.DBG("disposable success");
-                for(User user: users){
-                    Utils.DBG(user.getImgUrl());
-                }
+            public void onSuccess(List<User> users) {
+                // check if view updatable after on pause
+                //TODO isAttached ? possible - view null
+                // Make super class, thar will setFlag - retained if null. on start will check flag/flags and show results
+                view.setData(users);
             }
 
             @Override
             public void onError(Throwable e) {
-
+                view.onError();
             }
         });
     }

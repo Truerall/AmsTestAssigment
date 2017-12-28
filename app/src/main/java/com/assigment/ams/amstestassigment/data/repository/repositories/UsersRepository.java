@@ -5,6 +5,7 @@ import com.assigment.ams.amstestassigment.data.repository.api.UsersApiService;
 import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -18,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 public class UsersRepository {
 
     private UsersApiService apiService;
-    private ArrayList<User> usersList;
+    private List<User> usersList;
 
     //TODO Repository State
 
@@ -29,8 +30,8 @@ public class UsersRepository {
         //requestUsersList();
     }
 
-    private Single<ArrayList<User>> requestUsersList(DisposableSingleObserver<ArrayList<User>> observer) {
-        Single<ArrayList<User>> single = apiService.getUsers()
+    private Single<List<User>> requestUsersList(DisposableSingleObserver<List<User>> observer) {
+        Single<List<User>> single = apiService.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(response -> Single.just(response.getUsersArrayList()));
@@ -38,7 +39,7 @@ public class UsersRepository {
         return single;
     }
 
-    public Single<ArrayList<User>> getUsersList(DisposableSingleObserver<ArrayList<User>> observer){
+    public Single<List<User>> getUsersList(DisposableSingleObserver<List<User>> observer){
         if(!usersList.isEmpty()) {
             return Single.just(usersList);
         } else {
