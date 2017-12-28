@@ -7,6 +7,6 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         app:title="@string/app_name"
-        app:titleTextColor="@color/colorAccent"
-        android:background="@color/colorPrimary"
+        app:titleTextColor="@color/icons"
+        android:background="@color/primary"
         tools:context="com.assigment.ams.amstestassigment.presentation.main_screen.UsersListActivity"/>
