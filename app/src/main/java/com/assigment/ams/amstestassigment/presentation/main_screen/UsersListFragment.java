@@ -1,6 +1,5 @@
 package com.assigment.ams.amstestassigment.presentation.main_screen;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,10 +12,8 @@ import android.view.ViewGroup;
 
 import com.assigment.ams.amstestassigment.App;
 import com.assigment.ams.amstestassigment.R;
-import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenComponent;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenModule;
-import com.assigment.ams.amstestassigment.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -62,10 +59,18 @@ public class UsersListFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        usersListPresenter.start(view);// TODO this contract
+    }
+
+
     //TODO move to super
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        usersListPresenter.stop();
         unbinder.unbind();
     }
 }

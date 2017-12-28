@@ -1,12 +1,10 @@
 package com.assigment.ams.amstestassigment.data.repository.repositories;
 
-import com.assigment.ams.amstestassigment.data.model.Response.GetUserResponse;
-import com.assigment.ams.amstestassigment.utils.Utils;
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.api.UsersApiService;
+import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,7 +18,7 @@ import io.reactivex.schedulers.Schedulers;
 public class UsersRepository {
 
     private UsersApiService apiService;
-    private List<User> usersList;
+    private ArrayList<User> usersList;
 
     //TODO Repository State
 
@@ -28,40 +26,36 @@ public class UsersRepository {
         Utils.DBG("UserRepository constructor called");
         this.apiService = apiService;
         usersList = new ArrayList<>();
-        Single<GetUserResponse> single = apiService.getUsers();
-
-        single.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new DisposableSingleObserver<GetUserResponse>() {
-                @Override
-                public void onSuccess(GetUserResponse response) {
-                    usersList = response.getUsersArrayList();
-                    for (User user: response.getUsersArrayList()) {
-                        Utils.DBG(user.toString());
-                    }
-                }
-
-                @Override
-                public void onError(Throwable e) {
-                    Utils.DBG("Error "+e.getMessage());
-                }
-            });
-
-
-        //TODO usersList
-
+        //requestUsersList();
     }
 
-    public void printImReady(){
+    private Single<ArrayList<User>> requestUsersList(DisposableSingleObserver<ArrayList<User>> observer) {
+        Single<ArrayList<User>> single = apiService.getUsers()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap(response -> Single.just(response.getUsersArrayList()));
+        single.subscribe(observer);
+        return single;
+    }
+
+    public Single<ArrayList<User>> getUsersList(DisposableSingleObserver<ArrayList<User>> observer){
+        if(!usersList.isEmpty()) {
+            return Single.just(usersList);
+        } else {
+            return requestUsersList(observer);
+        }
+    }
+
+    public void printImReady() {
         Utils.DBG("Repository is ready ");
     }
 
-    public void printUsersList(){
+    public void printUsersList() {
         if (usersList == null) {
             Utils.DBG("List is empty");
             return;
         }
-        for (User user: usersList) {
+        for (User user : usersList) {
             Utils.DBG(user.toString());
         }
     }
