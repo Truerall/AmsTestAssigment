@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;
+import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class UsersListPresenter implements UsersListContract.Presenter {
                 //TODO isAttached ? possible - view null
                 // Make super class, thar will setFlag - retained if null. on start will check flag/flags and show results
                 view.setData(users);
+                Utils.DBG("Users size >>> "+ users.size());
             }
 
             @Override

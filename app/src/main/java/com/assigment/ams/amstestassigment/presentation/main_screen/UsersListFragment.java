@@ -3,7 +3,9 @@ package com.assigment.ams.amstestassigment.presentation.main_screen;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -16,7 +18,6 @@ import com.assigment.ams.amstestassigment.R;
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenComponent;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenModule;
-import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
     @Inject UsersListPresenter usersListPresenter;
 
     private Unbinder unbinder; //TODO move to super
+    private UsersListAdapter adapter;
 
     public UsersListFragment() {
     }
@@ -61,14 +63,7 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_main, container, false);
         unbinder = ButterKnife.bind(this, view);
-
-        recyclerView.setHasFixedSize(true);
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(mLayoutManager);
-
-//         specify an adapter (see also next example)
-//        mAdapter = new MyAdapter(myDataset);
-//        mRecyclerView.setAdapter(mAdapter);
+        initRecycleView();
         return view;
     }
 
@@ -78,6 +73,18 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
         usersListPresenter.start(this);
     }
 
+    private void initRecycleView(){
+        recyclerView.setHasFixedSize(true);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(mLayoutManager);
+
+//        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(), mLayoutManager.getOrientation());
+//        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.divider));
+//        recyclerView.addItemDecoration(dividerItemDecoration);
+
+        adapter = new UsersListAdapter();
+        recyclerView.setAdapter(adapter);
+    }
 
     //TODO move to super
     @Override
@@ -89,10 +96,7 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
 
     @Override
     public void setData(List<User> data) {
-        Utils.DBG("setData success");
-        for (User user : data) {
-            Utils.DBG(user.getImgUrl());
-        }
+        adapter.setData(data);
     }
 
     @Override
