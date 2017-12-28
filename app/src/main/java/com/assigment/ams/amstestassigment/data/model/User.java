@@ -1,10 +1,13 @@
 
 package com.assigment.ams.amstestassigment.data.model;
 
+import com.assigment.ams.amstestassigment.BuildConfig;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class User {
+    private static final String URL_FIRST_PART = "/demo/users/";
+    private static final String URL_SECOND_PART = "/picture";
 
     @SerializedName("userID")
     @Expose
@@ -34,6 +37,9 @@ public class User {
     private String imgUrl;
 
     public String getImgUrl() {
+        if (imgUrl == null){
+            imgUrl = BuildConfig.API_BASE_URL + URL_FIRST_PART + userID + URL_SECOND_PART;
+        }
         return imgUrl;
     }
 
