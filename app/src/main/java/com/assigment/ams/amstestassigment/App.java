@@ -2,6 +2,10 @@ package com.assigment.ams.amstestassigment;
 
 import android.app.Application;
 
+import com.assigment.ams.amstestassigment.di.AppComponent;
+import com.assigment.ams.amstestassigment.di.AppModule;
+import com.assigment.ams.amstestassigment.di.DaggerAppComponent;
+
 /**
  * Created by truerall on 12/27/17.
  */

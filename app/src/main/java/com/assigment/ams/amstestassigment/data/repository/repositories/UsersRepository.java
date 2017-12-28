@@ -25,6 +25,7 @@ public class UsersRepository {
     //TODO Repository State
 
     public UsersRepository(UsersApiService apiService) {
+        Utils.DBG("UserRepository constructor called");
         this.apiService = apiService;
         usersList = new ArrayList<>();
         Single<GetUserResponse> single = apiService.getUsers();
@@ -34,7 +35,7 @@ public class UsersRepository {
             .subscribe(new DisposableSingleObserver<GetUserResponse>() {
                 @Override
                 public void onSuccess(GetUserResponse response) {
-
+                    usersList = response.getUsersArrayList();
                     for (User user: response.getUsersArrayList()) {
                         Utils.DBG(user.toString());
                     }
@@ -53,5 +54,15 @@ public class UsersRepository {
 
     public void printImReady(){
         Utils.DBG("Repository is ready ");
+    }
+
+    public void printUsersList(){
+        if (usersList == null) {
+            Utils.DBG("List is empty");
+            return;
+        }
+        for (User user: usersList) {
+            Utils.DBG(user.toString());
+        }
     }
 }

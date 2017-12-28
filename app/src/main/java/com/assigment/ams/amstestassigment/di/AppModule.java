@@ -1,7 +1,8 @@
-package com.assigment.ams.amstestassigment;
+package com.assigment.ams.amstestassigment.di;
 
 import android.app.Application;
 
+import com.assigment.ams.amstestassigment.BuildConfig;
 import com.assigment.ams.amstestassigment.data.repository.api.UsersApiService;
 import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
