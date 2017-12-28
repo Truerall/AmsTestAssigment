@@ -51,4 +51,9 @@ public class UsersListPresenter implements UsersListContract.Presenter {
             }
         });
     }
+
+    void deleteUser(User user){
+        usersRepository.removeUserById(user.getUserID());
+        usersRepository.printListSize();
+    }
 }

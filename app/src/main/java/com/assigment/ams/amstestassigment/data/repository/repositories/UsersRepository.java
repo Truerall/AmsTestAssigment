@@ -24,17 +24,18 @@ public class UsersRepository {
     //TODO Repository State
 
     public UsersRepository(UsersApiService apiService) {
-        Utils.DBG("UserRepository constructor called");
         this.apiService = apiService;
         usersList = new ArrayList<>();
-        //requestUsersList();
     }
 
     private Single<List<User>> requestUsersList(DisposableSingleObserver<List<User>> observer) {
         Single<List<User>> single = apiService.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .flatMap(response -> Single.just(response.getUsersArrayList()));
+                .flatMap(response -> Single.fromCallable(() -> {
+                    usersList = response.getUsersArrayList();
+                    return response.getUsersArrayList();
+                }));
         single.subscribe(observer);
         return single;
     }
@@ -51,6 +52,10 @@ public class UsersRepository {
         Utils.DBG("Repository is ready ");
     }
 
+    public void printListSize() {
+        Utils.DBG("Repo Size > "+usersList.size());
+    }
+
     public void printUsersList() {
         if (usersList == null) {
             Utils.DBG("List is empty");
@@ -58,6 +63,15 @@ public class UsersRepository {
         }
         for (User user : usersList) {
             Utils.DBG(user.toString());
+        }
+    }
+
+    public void removeUserById(int userId){
+        for(User user: usersList){
+            if(user.getUserID() == userId) {
+                usersList.remove(user);
+                return;
+            }
         }
     }
 }

@@ -8,5 +8,5 @@ public interface ItemAdapterListener<T> {
 
     void onItemShowDetails(T item);
 
-    void onItemDelete(T item);
+    void onItemDelete(T item, int position);
 }

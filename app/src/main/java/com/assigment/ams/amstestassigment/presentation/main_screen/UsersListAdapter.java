@@ -83,7 +83,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
                 break;
             case R.id.iv_delete_user:
                 Utils.DBG("click DELETE at position "+position);
-                itemAdapterListener.onItemDelete(mDataSet.get(position));
+                itemAdapterListener.onItemDelete(mDataSet.get(position), position);
                 break;
         }
     }

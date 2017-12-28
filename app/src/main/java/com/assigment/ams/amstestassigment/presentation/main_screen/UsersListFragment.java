@@ -111,12 +111,14 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
     }
 
     @Override
-    public void onItemShowDetails(User item) {
-        Utils.DBG("Details of > "+item.getFirstName());
+    public void onItemShowDetails(User user) {
+        Utils.DBG("Details of > "+user.getFirstName());
     }
 
     @Override
-    public void onItemDelete(User item) {
-        Utils.DBG("Delete the > "+item.getFirstName());
+    public void onItemDelete(User user, int position) {
+        Utils.DBG("Delete the > "+user.getFirstName());
+        usersListPresenter.deleteUser(user);
+        adapter.notifyItemRemoved(position);
     }
 }
