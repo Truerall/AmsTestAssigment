@@ -5,4 +5,9 @@
     <string name="vs_tv_error">Sorry, something went wrong.</string>
     <string name="vs_tv_no_data">No data.</string>
     <string name="vs_tv_add_data">Please swipe to refresh data.</string>
+
+    <!-- details layout -->
+    <string name="tv_user_name">Username: </string>
+    <string name="tv_first_name">First name: </string>
+    <string name="tv_last_name">Last name: </string>
 </resources>

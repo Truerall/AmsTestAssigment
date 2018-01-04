@@ -1,4 +1,6 @@
 <resources>
     <!-- state layout -->
     <string name="dummy_error_message">[Terrible error. Terrifying message describing error.]</string>
+    <string name="dummy_first_name">[Jack]</string>
+    <string name="dummy_last_name">[Sparrow]</string>
 </resources>
