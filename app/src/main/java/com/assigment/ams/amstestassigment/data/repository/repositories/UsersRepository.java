@@ -1,5 +1,7 @@
 package com.assigment.ams.amstestassigment.data.repository.repositories;
 
+import android.support.annotation.Nullable;
+
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.api.UsersApiService;
 import com.assigment.ams.amstestassigment.utils.Utils;
@@ -62,6 +64,16 @@ public class UsersRepository {
                 return;
             }
         }
+    }
+
+    @Nullable
+    public User getUserById(int userId) {
+        for (User user : usersList) {
+            if (user.getUserID() == userId) {
+                return user;
+            }
+        }
+        return null;
     }
 
     public int getCacheSize() {

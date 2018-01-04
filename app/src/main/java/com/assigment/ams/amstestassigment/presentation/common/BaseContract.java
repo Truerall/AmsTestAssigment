@@ -26,8 +26,5 @@ public class BaseContract {
         void start(V view);
 
         void stop();
-
-        void getData();
-
     }
 }

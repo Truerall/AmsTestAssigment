@@ -56,7 +56,6 @@ public class UsersListPresenter implements UsersListContract.Presenter {
                 //TODO isAttached ? possible - view null
                 // Make super class, thar will setFlag - retained if null. on start will check flag/flags and show results
                 view.setData(users);
-                view.hideProgress();
             }
 
             @Override

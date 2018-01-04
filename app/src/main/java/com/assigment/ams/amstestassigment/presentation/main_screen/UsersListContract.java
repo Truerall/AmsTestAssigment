@@ -16,6 +16,6 @@ public interface UsersListContract {
     }
 
     interface Presenter extends BaseContract.BasePresenter<View> {
-
+        void getData();
     }
 }

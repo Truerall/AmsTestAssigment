@@ -1,6 +1,8 @@
 package com.assigment.ams.amstestassigment.di;
 
 import com.assigment.ams.amstestassigment.App;
+import com.assigment.ams.amstestassigment.di.details_screen.DetailsScreenComponent;
+import com.assigment.ams.amstestassigment.di.details_screen.DetailsScreenModule;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenComponent;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenModule;
 import com.assigment.ams.amstestassigment.presentation.main_screen.UsersListActivity;
@@ -17,6 +19,8 @@ import dagger.Component;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
     MainScreenComponent plus(MainScreenModule mainScreenModule);
+
+    DetailsScreenComponent plus(DetailsScreenModule detailsScreenModule);
 
     void inject(App app);
 
