@@ -27,8 +27,10 @@ public class UserDetailsPresenter implements UserDetailsContract.Presenter {
 
     @Override
     public void getData(int id) {
-        if (id == -1) view.onError();
-        view.showProgress();
-        view.setData(getUserDetailsUseCase.executeUseCase(id));
+        if (view.isAvailable()) {
+            if (id == -1) view.onError();
+            view.showProgress();
+            view.setData(getUserDetailsUseCase.executeUseCase(id));
+        }
     }
 }

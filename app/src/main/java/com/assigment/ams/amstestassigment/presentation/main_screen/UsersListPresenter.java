@@ -36,7 +36,7 @@ public class UsersListPresenter implements UsersListContract.Presenter {
 
     @Override
     public void getData() {
-        view.showProgress();
+        if(view.isAvailable()) view.showProgress();
         getUsersUseCase.executeUseCase(getDataObserver(), false);
     }
 
@@ -52,10 +52,7 @@ public class UsersListPresenter implements UsersListContract.Presenter {
         return new DisposableSingleObserver<List<User>>() {
             @Override
             public void onSuccess(List<User> users) {
-                // check if view updatable after on pause
-                //TODO isAttached ? possible - view null
-                // Make super class, thar will setFlag - retained if null. on start will check flag/flags and show results
-                view.setData(users);
+                if(view.isAvailable()) view.setData(users);
             }
 
             @Override

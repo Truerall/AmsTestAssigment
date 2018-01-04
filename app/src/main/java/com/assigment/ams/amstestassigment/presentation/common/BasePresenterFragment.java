@@ -123,4 +123,9 @@ public abstract class BasePresenterFragment<P extends BaseContract.BasePresenter
     public void hideProgress() {
         vsLoading.setVisibility(View.GONE);
     }
+
+    @Override
+    public boolean isAvailable() {
+        return isAdded();
+    }
 }

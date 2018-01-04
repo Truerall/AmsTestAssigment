@@ -7,6 +7,8 @@ package com.assigment.ams.amstestassigment.presentation.common;
 public class BaseContract {
 
     public interface BaseView {
+        boolean isAvailable();
+
         void onError();
 
         void onError(String message);
