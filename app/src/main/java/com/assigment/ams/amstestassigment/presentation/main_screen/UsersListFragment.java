@@ -26,7 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class UsersListFragment extends BasePresenterFragment<UsersListPresenter> implements UsersListContract.View, ItemAdapterListener<User> {
+public class UsersListFragment extends BasePresenterFragment<UsersListPresenter> implements UsersListContract.View, ItemAdapterListener<User>, SwipeRefreshLayout.OnRefreshListener {
 
     @BindView(R.id.rv_main)
     RecyclerView recyclerView;
@@ -57,6 +57,7 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
         View view = inflater.inflate(R.layout.fragment_list_main, container, false);
         attachUnbinder(ButterKnife.bind(this, view));
         initRecycleView();
+        swrUsers.setOnRefreshListener(this);
         return view;
     }
 
@@ -70,6 +71,7 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
     @Override
     public void setData(@NonNull List<User> data) {
         if (data.isEmpty()) showEmptyState();
+        if (swrUsers.isRefreshing()) swrUsers.setRefreshing(false);
         adapter.setData(data);
     }
 
@@ -85,5 +87,16 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
         if (adapter.isDataSetEmpty()) {
             showEmptyState();
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        getPresenter().refreshUserList();
+    }
+
+    @Override
+    public void onError() {
+        super.onError();
+        if (swrUsers.isRefreshing()) swrUsers.setRefreshing(false);
     }
 }
