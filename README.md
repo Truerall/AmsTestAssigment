@@ -1,6 +1,6 @@
 # AmsTestAssigment
 
-Hi, this project is my implementation of test assigment.
+Hi, this project is my implementation of test assigment. I would like to underline the fact that my main purpose was to create understandable and robust architecture, so UI of an app is quite simple.
 
 ## Commits markdown tags description
   -   [Common] - git ignore changes, proguard rules etc, marker commits, transport commits
