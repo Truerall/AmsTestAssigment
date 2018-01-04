@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <ViewStub
-        android:id="@+id/vs_empty_view"
+        android:id="@+id/vs_empty"
         android:inflatedId="@+id/vg_empty_view"
         android:layout="@layout/vs_empty"
         android:layout_width="match_parent"

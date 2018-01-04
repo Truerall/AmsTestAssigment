@@ -1,6 +1,7 @@
 package com.assigment.ams.amstestassigment.presentation.main_screen;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -69,7 +70,8 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
     }
 
     @Override
-    public void setData(List<User> data) {
+    public void setData(@NonNull List<User> data) {
+        if(data.isEmpty()) showEmptyState();
         adapter.setData(data);
     }
 

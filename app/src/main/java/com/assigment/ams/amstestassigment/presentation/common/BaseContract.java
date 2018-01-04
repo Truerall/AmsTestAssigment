@@ -7,12 +7,17 @@ package com.assigment.ams.amstestassigment.presentation.common;
 public class BaseContract {
 
     public interface BaseView {
-
         void onError();
+
+        void onError(String message);
 
         void showEmptyState();
 
+        void showEmptyState(String message);
+
         void showProgress();
+
+        void hideProgress();
     }
 
 

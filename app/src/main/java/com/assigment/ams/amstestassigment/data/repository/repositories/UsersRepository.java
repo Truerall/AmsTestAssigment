@@ -79,4 +79,8 @@ public class UsersRepository {
             }
         }
     }
+
+    public int getCacheSize() {
+        return usersList.size();
+    }
 }

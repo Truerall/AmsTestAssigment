@@ -42,11 +42,12 @@ public class UsersListPresenter implements UsersListContract.Presenter {
                 //TODO isAttached ? possible - view null
                 // Make super class, thar will setFlag - retained if null. on start will check flag/flags and show results
                 view.setData(users);
-                Utils.DBG("Users size >>> "+ users.size());
+                view.hideProgress();
             }
 
             @Override
             public void onError(Throwable e) {
+                //TODO Error handling layer
                 view.onError();
             }
         });
@@ -54,6 +55,8 @@ public class UsersListPresenter implements UsersListContract.Presenter {
 
     void deleteUser(User user){
         usersRepository.removeUserById(user.getUserID());
-        usersRepository.printListSize();
+        if(usersRepository.getCacheSize() == 0){
+            view.showEmptyState();
+        }
     }
 }

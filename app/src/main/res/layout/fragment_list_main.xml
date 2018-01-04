@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include layout="@layout/state_layout" />
-
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swr_users"
             android:layout_width="match_parent"
@@ -24,8 +22,9 @@
                 android:layout_height="match_parent"
                 tools:listitem="@layout/item_users_list"/>
 
-
         </android.support.v4.widget.SwipeRefreshLayout>
+
+        <include layout="@layout/state_layout"/>
 
     </FrameLayout>
 
