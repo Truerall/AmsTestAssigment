@@ -20,4 +20,4 @@ For implementation of task I have chosen MVP + Clean Arch design.
   - RxJava 2 - Multithreading
   - Dagger 2 - DI
   - ButterKnife - View binding
-  - Glide - images
+  - Glide - Images
