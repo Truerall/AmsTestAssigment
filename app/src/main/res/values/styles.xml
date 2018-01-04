@@ -22,12 +22,14 @@
 
     <style name="TextViewDetailItemLabel" parent="android:Widget.TextView">
         <item name="android:textColor">@color/primary_text</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextViewDetailItemData" parent="android:Widget.TextView">
         <item name="android:textColor">@color/secondary_text</item>
+        <item name="android:singleLine">true</item>
         <item name="android:textSize">14sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>

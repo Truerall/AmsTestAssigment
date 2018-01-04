@@ -32,15 +32,16 @@
                     android:id="@+id/iv_avatar"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="4"
+                    android:layout_weight="3"
                     android:src="@drawable/vh_avatar_large" />
 
                 <LinearLayout
                     android:id="@+id/ll_base_details_container"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:orientation="vertical" />
+                    android:layout_weight="7"
+                    android:orientation="vertical" >
+                </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
 

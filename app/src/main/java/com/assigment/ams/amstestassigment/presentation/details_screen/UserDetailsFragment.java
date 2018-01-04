@@ -97,7 +97,7 @@ public class UserDetailsFragment extends BasePresenterFragment<UserDetailsPresen
     }
 
     private void fillViews(User user) {
-        Glide.with(this).load(user.getImgUrl()).placeholder(R.drawable.ic_launcher_foreground).into(ivAvatar);
+        Glide.with(this).load(user.getImgUrl()).placeholder(R.drawable.ph_avatar).into(ivAvatar);
         List<UserDetailViewModel> baseList = DetailsMapper.mapBaseAttributes(user);
 
         for (UserDetailViewModel model : baseList) {

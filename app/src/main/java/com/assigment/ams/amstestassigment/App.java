@@ -13,7 +13,7 @@ import com.assigment.ams.amstestassigment.di.DaggerAppComponent;
 public class App extends Application {
 
     private static App instance;
-    AppComponent appComponent;
+    private AppComponent appComponent;
 
     @Override
     public void onCreate() {

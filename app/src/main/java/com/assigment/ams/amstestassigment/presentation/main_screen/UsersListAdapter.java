@@ -12,7 +12,6 @@ import com.assigment.ams.amstestassigment.R;
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.presentation.main_screen.listener.InnerViewHolderClickListener;
 import com.assigment.ams.amstestassigment.presentation.main_screen.listener.ItemAdapterListener;
-import com.assigment.ams.amstestassigment.utils.Utils;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         final User user = mDataSet.get(position);
 
-        Glide.with(holder.ivAvatar.getContext()).load(user.getImgUrl()).placeholder(R.drawable.ic_launcher_foreground).into(holder.ivAvatar);
+        Glide.with(holder.ivAvatar.getContext()).load(user.getImgUrl()).placeholder(R.drawable.ph_avatar).into(holder.ivAvatar);
 
         holder.tvFirstName.setText(user.getFirstName());
         holder.tvLastName.setText(user.getLastName());
@@ -83,11 +82,9 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
             case NO_POSITION:
                 break;
             case R.id.cv_container:
-                Utils.DBG("click details at position " + position);
                 itemAdapterListener.onItemShowDetails(mDataSet.get(position));
                 break;
             case R.id.iv_delete_user:
-                Utils.DBG("click DELETE at position " + position);
                 itemAdapterListener.onItemDelete(mDataSet.get(position), position);
                 break;
         }
