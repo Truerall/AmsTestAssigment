@@ -2,8 +2,8 @@ package com.assigment.ams.amstestassigment.di.main_screen;
 
 import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;
 import com.assigment.ams.amstestassigment.di.scope.FragmentScope;
-import com.assigment.ams.amstestassigment.domain.use_case.GetUsersUseCase;
-import com.assigment.ams.amstestassigment.domain.use_case.RemoveUserUseCase;
+import com.assigment.ams.amstestassigment.domain.use_case.main_screen.GetUsersUseCase;
+import com.assigment.ams.amstestassigment.domain.use_case.main_screen.RemoveUserUseCase;
 import com.assigment.ams.amstestassigment.presentation.main_screen.UsersListPresenter;
 
 import dagger.Module;

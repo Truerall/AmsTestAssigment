@@ -1,4 +1,4 @@
-package com.assigment.ams.amstestassigment.domain.use_case;
+package com.assigment.ams.amstestassigment.domain.use_case.main_screen;
 
 import android.support.annotation.NonNull;
 

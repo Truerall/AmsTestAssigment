@@ -1,4 +1,4 @@
-package com.assigment.ams.amstestassigment.domain.use_case;
+package com.assigment.ams.amstestassigment.domain.use_case.main_screen;
 
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;

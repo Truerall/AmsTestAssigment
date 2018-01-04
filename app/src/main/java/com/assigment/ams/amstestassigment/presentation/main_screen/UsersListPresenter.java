@@ -3,8 +3,8 @@ package com.assigment.ams.amstestassigment.presentation.main_screen;
 import android.support.annotation.NonNull;
 
 import com.assigment.ams.amstestassigment.data.model.User;
-import com.assigment.ams.amstestassigment.domain.use_case.GetUsersUseCase;
-import com.assigment.ams.amstestassigment.domain.use_case.RemoveUserUseCase;
+import com.assigment.ams.amstestassigment.domain.use_case.main_screen.GetUsersUseCase;
+import com.assigment.ams.amstestassigment.domain.use_case.main_screen.RemoveUserUseCase;
 
 import java.util.List;
 
