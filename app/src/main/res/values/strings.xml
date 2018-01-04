@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">amsTestAssigment</string>
+
+    <!-- state layout -->
+    <string name="vs_tv_error">Sorry, something went wrong.</string>
+    <string name="vs_tv_no_data">No data.</string>
+    <string name="vs_tv_add_data">Maybe be you are new user and you need to add some data?</string>
 </resources>
