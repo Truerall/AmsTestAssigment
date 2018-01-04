@@ -37,6 +37,10 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
         this.itemAdapterListener = itemAdapterListener;
     }
 
+    public boolean isDataSetEmpty(){
+        return mDataSet.isEmpty();
+    }
+
     public void addData(List<User> mDataSet){
         this.mDataSet.addAll(mDataSet);
         notifyDataSetChanged();
@@ -111,7 +115,6 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
             innerViewHolderClickListener.onClick(v.getId(), getAdapterPosition());
         }
     }
-
 }
 
 

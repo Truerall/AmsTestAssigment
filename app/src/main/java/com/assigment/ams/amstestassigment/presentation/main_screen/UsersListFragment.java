@@ -82,5 +82,8 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
     public void onItemDelete(User user, int position) {
         getPresenter().deleteUser(user);
         adapter.notifyItemRemoved(position);
+        if (adapter.isDataSetEmpty()) {
+            showEmptyState();
+        }
     }
 }

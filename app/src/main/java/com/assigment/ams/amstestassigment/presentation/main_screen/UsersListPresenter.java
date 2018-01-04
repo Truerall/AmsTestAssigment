@@ -3,7 +3,8 @@ package com.assigment.ams.amstestassigment.presentation.main_screen;
 import android.support.annotation.NonNull;
 
 import com.assigment.ams.amstestassigment.data.model.User;
-import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;
+import com.assigment.ams.amstestassigment.domain.use_case.GetUsersUseCase;
+import com.assigment.ams.amstestassigment.domain.use_case.RemoveUserUseCase;
 
 import java.util.List;
 
@@ -15,11 +16,13 @@ import io.reactivex.observers.DisposableSingleObserver;
 
 public class UsersListPresenter implements UsersListContract.Presenter {
 
-    private UsersRepository usersRepository;
+    private GetUsersUseCase getUsersUseCase;
+    private RemoveUserUseCase removeUserUsecase;
     private UsersListContract.View view;
 
-    public UsersListPresenter(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UsersListPresenter(GetUsersUseCase getUsersUseCase, RemoveUserUseCase removeUserUsecase) {
+        this.getUsersUseCase = getUsersUseCase;
+        this.removeUserUsecase = removeUserUsecase;
     }
 
     public void start(@NonNull UsersListContract.View view) {
@@ -34,7 +37,19 @@ public class UsersListPresenter implements UsersListContract.Presenter {
     @Override
     public void getData() {
         view.showProgress();
-        usersRepository.getUsersList(new DisposableSingleObserver<List<User>>() {
+        getUsersUseCase.executeUseCase(getDataObserver(), false);
+    }
+
+    void deleteUser(@NonNull User user) {
+        removeUserUsecase.executeUseCase(user);
+    }
+
+    void refreshUserList() {
+        getUsersUseCase.executeUseCase(getDataObserver(), true);
+    }
+
+    private DisposableSingleObserver<List<User>> getDataObserver() {
+        return new DisposableSingleObserver<List<User>>() {
             @Override
             public void onSuccess(List<User> users) {
                 // check if view updatable after on pause
@@ -49,13 +64,6 @@ public class UsersListPresenter implements UsersListContract.Presenter {
                 //TODO Error handling layer
                 view.onError();
             }
-        });
-    }
-
-    void deleteUser(User user) {
-        usersRepository.removeUserById(user.getUserID());
-        if (usersRepository.getCacheSize() == 0) {
-            view.showEmptyState();
-        }
+        };
     }
 }

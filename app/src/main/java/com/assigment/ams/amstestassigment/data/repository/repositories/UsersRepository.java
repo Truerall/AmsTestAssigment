@@ -27,7 +27,7 @@ public class UsersRepository {
         this.apiService = apiService;
     }
 
-    private void requestUsersList(DisposableSingleObserver<List<User>> observer) {
+    public void requestUsersList(DisposableSingleObserver<List<User>> observer) {
         apiService.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -52,24 +52,6 @@ public class UsersRepository {
 
     private void getListFromCache(DisposableSingleObserver<List<User>> observer) {
         Single.just(usersList).subscribe(observer);
-    }
-
-    public void printImReady() {
-        Utils.DBG("Repository is ready ");
-    }
-
-    public void printListSize() {
-        Utils.DBG("Repo Size > " + usersList.size());
-    }
-
-    public void printUsersList() {
-        if (usersList == null) {
-            Utils.DBG("List is empty");
-            return;
-        }
-        for (User user : usersList) {
-            Utils.DBG(user.toString());
-        }
     }
 
     public void removeUserById(int userId) {
