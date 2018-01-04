@@ -26,6 +26,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    sourceSets {
+        main.res.srcDirs += 'src/main/res/layout/activity'
+        main.res.srcDirs += 'src/main/res/layout/fragment'
+        main.res.srcDirs += 'src/main/res/layout/item'
+        main.res.srcDirs += 'src/main/res/layout/toolbar'
+    }
     buildToolsVersion '26.0.2'
 }
 

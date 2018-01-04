@@ -61,7 +61,6 @@ public class UsersListPresenter implements UsersListContract.Presenter {
 
             @Override
             public void onError(Throwable e) {
-                //TODO Error handling layer
                 view.onError();
                 observer.dispose();
             }
