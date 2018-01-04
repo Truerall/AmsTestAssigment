@@ -2,6 +2,7 @@ package com.assigment.ams.amstestassigment.utils;
 
 import android.util.Log;
 
+import com.assigment.ams.amstestassigment.App;
 import com.assigment.ams.amstestassigment.BuildConfig;
 
 /**
@@ -19,6 +20,10 @@ public class Utils {
      */
     public static void DBG(String message) {
         if (BuildConfig.DEBUG_FEATURES) Log.i(TAG, message);
+    }
+
+    public static String getString(int stringId){
+        return App.getInstance().getResources().getString(stringId);
     }
 
 }

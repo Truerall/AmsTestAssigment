@@ -37,21 +37,22 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
         this.itemAdapterListener = itemAdapterListener;
     }
 
-    public boolean isDataSetEmpty(){
+    public boolean isDataSetEmpty() {
         return mDataSet.isEmpty();
     }
 
-    public void addData(List<User> mDataSet){
+    public void addData(List<User> mDataSet) {
         this.mDataSet.addAll(mDataSet);
         notifyDataSetChanged();
     }
 
-    public void setData(List<User> mDataSet){
+    public void setData(List<User> mDataSet) {
         this.mDataSet = mDataSet;
         notifyDataSetChanged();
     }
+
     @Override
-    public UsersListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,int viewType) {
+    public UsersListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_users_list, parent, false);
         ViewHolder viewHolder = new ViewHolder(view);
         viewHolder.setItemAdapterListener(this);
@@ -62,7 +63,7 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
     public void onBindViewHolder(ViewHolder holder, int position) {
         final User user = mDataSet.get(position);
 
-        Glide.with(holder.ivAvatar.getContext()).load(user.getImgUrl()).into(holder.ivAvatar);
+        Glide.with(holder.ivAvatar.getContext()).load(user.getImgUrl()).placeholder(R.drawable.ic_launcher_foreground).into(holder.ivAvatar);
 
         holder.tvFirstName.setText(user.getFirstName());
         holder.tvLastName.setText(user.getLastName());
@@ -78,37 +79,44 @@ public class UsersListAdapter extends RecyclerView.Adapter<UsersListAdapter.View
 
     @Override
     public void onClick(int id, int position) {
-        switch (id){
+        switch (id) {
             case NO_POSITION:
                 break;
             case R.id.cv_container:
-                Utils.DBG("click details at position "+position);
+                Utils.DBG("click details at position " + position);
                 itemAdapterListener.onItemShowDetails(mDataSet.get(position));
                 break;
             case R.id.iv_delete_user:
-                Utils.DBG("click DELETE at position "+position);
+                Utils.DBG("click DELETE at position " + position);
                 itemAdapterListener.onItemDelete(mDataSet.get(position), position);
                 break;
         }
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
-        @BindView(R.id.cv_container) CardView cvContainer;
-        @BindView(R.id.iv_avatar) AppCompatImageView ivAvatar;
-        @BindView(R.id.tv_first_name) TextView tvFirstName;
-        @BindView(R.id.tv_last_name) TextView tvLastName;
-        @BindView(R.id.iv_delete_user) AppCompatImageView ivDelete;
+    static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        @BindView(R.id.cv_container)
+        CardView cvContainer;
+        @BindView(R.id.iv_avatar)
+        AppCompatImageView ivAvatar;
+        @BindView(R.id.tv_first_name)
+        TextView tvFirstName;
+        @BindView(R.id.tv_last_name)
+        TextView tvLastName;
+        @BindView(R.id.iv_delete_user)
+        AppCompatImageView ivDelete;
 
         InnerViewHolderClickListener innerViewHolderClickListener;
 
         ViewHolder(View v) {
             super(v);
-            ButterKnife.bind(this,v);
+            ButterKnife.bind(this, v);
         }
 
-        void setItemAdapterListener(InnerViewHolderClickListener innerViewHolderClickListener){
+        void setItemAdapterListener(InnerViewHolderClickListener innerViewHolderClickListener) {
             this.innerViewHolderClickListener = innerViewHolderClickListener;
-        };
+        }
+
+        ;
 
         @Override
         public void onClick(View v) {
