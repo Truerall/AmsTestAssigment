@@ -1,8 +1,8 @@
 package com.assigment.ams.amstestassigment.presentation.main_screen;
 
 import com.assigment.ams.amstestassigment.data.model.User;
-import com.assigment.ams.amstestassigment.presentation.BasePresenter;
-import com.assigment.ams.amstestassigment.presentation.BaseView;
+import com.assigment.ams.amstestassigment.presentation.common.BaseContract;
+import com.assigment.ams.amstestassigment.presentation.common.BaseDataView;
 
 import java.util.List;
 
@@ -11,11 +11,11 @@ import java.util.List;
  */
 
 public interface UsersListContract {
-    interface View extends BaseView<List<User>> {
+    interface View extends BaseDataView<List<User>> {
 
     }
 
-    interface Presenter extends BasePresenter<View> {
+    interface Presenter extends BaseContract.BasePresenter<View> {
 
     }
 }

@@ -16,18 +16,16 @@ import com.assigment.ams.amstestassigment.R;
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenComponent;
 import com.assigment.ams.amstestassigment.di.main_screen.MainScreenModule;
+import com.assigment.ams.amstestassigment.presentation.common.BasePresenterFragment;
 import com.assigment.ams.amstestassigment.presentation.main_screen.listener.ItemAdapterListener;
 import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
-public class UsersListFragment extends Fragment implements UsersListContract.View, ItemAdapterListener<User> {
+public class UsersListFragment extends BasePresenterFragment<UsersListPresenter> implements UsersListContract.View, ItemAdapterListener<User> {
 
     @BindView(R.id.rv_main)
     RecyclerView recyclerView;
@@ -39,13 +37,7 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
 
     MainScreenComponent mainScreenComponent;
 
-    @Inject UsersListPresenter usersListPresenter;
-
-    private Unbinder unbinder; //TODO move to super
     private UsersListAdapter adapter;
-
-    public UsersListFragment() {
-    }
 
     public static Fragment newInstance() {
         return new UsersListFragment();
@@ -54,7 +46,7 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+
         mainScreenComponent = App.getInstance().getAppComponent().plus(new MainScreenModule());
         mainScreenComponent.inject(this);
     }
@@ -62,15 +54,9 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_main, container, false);
-        unbinder = ButterKnife.bind(this, view);
+        attachUnbinder(ButterKnife.bind(this, view));
         initRecycleView();
         return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        usersListPresenter.start(this);
     }
 
     private void initRecycleView(){
@@ -82,32 +68,9 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
         recyclerView.setAdapter(adapter);
     }
 
-    //TODO move to super
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        usersListPresenter.stop();
-        unbinder.unbind();
-    }
-
     @Override
     public void setData(List<User> data) {
         adapter.setData(data);
-    }
-
-    @Override
-    public void onError() {
-
-    }
-
-    @Override
-    public void showEmptyState() {
-
-    }
-
-    @Override
-    public void showProgress() {
-
     }
 
     @Override
@@ -117,8 +80,7 @@ public class UsersListFragment extends Fragment implements UsersListContract.Vie
 
     @Override
     public void onItemDelete(User user, int position) {
-        Utils.DBG("Delete the > "+user.getFirstName());
-        usersListPresenter.deleteUser(user);
+        getPresenter().deleteUser(user);
         adapter.notifyItemRemoved(position);
     }
 }
