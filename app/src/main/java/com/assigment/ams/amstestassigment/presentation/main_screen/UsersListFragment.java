@@ -47,7 +47,7 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        adapter = new UsersListAdapter(this);
         mainScreenComponent = App.getInstance().getAppComponent().plus(new MainScreenModule());
         mainScreenComponent.inject(this);
     }
@@ -60,24 +60,22 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
         return view;
     }
 
-    private void initRecycleView(){
+    private void initRecycleView() {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(mLayoutManager);
-
-        adapter = new UsersListAdapter(this);
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void setData(@NonNull List<User> data) {
-        if(data.isEmpty()) showEmptyState();
+        if (data.isEmpty()) showEmptyState();
         adapter.setData(data);
     }
 
     @Override
     public void onItemShowDetails(User user) {
-        Utils.DBG("Details of > "+user.getFirstName());
+        Utils.DBG("Details of > " + user.getFirstName());
     }
 
     @Override

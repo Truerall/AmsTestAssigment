@@ -27,9 +27,10 @@ public abstract class BasePresenterFragment<P extends BaseContract.BasePresenter
     private int vsEmptyId = R.id.vs_empty;
     private int vsLoadingId = R.id.vs_loading;
 
-    @Inject P presenter;
+    @Inject
+    P presenter;
 
-    protected void attachUnbinder(Unbinder unbinder){
+    protected void attachUnbinder(Unbinder unbinder) {
         this.unbinder = unbinder;
     }
 
@@ -42,7 +43,8 @@ public abstract class BasePresenterFragment<P extends BaseContract.BasePresenter
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (unbinder == null) throw new RuntimeException("Please use attachUnbinder(Undbinder unbinder) in onCreateView before use of fragment to avoid memory leaks");
+        if (unbinder == null)
+            throw new RuntimeException("Please use attachUnbinder(Undbinder unbinder) in onCreateView before use of fragment to avoid memory leaks");
         initViewStubs(view);
         presenter.start(this);
     }
@@ -54,29 +56,29 @@ public abstract class BasePresenterFragment<P extends BaseContract.BasePresenter
         unbinder.unbind();
     }
 
-    public P getPresenter() {
+    protected P getPresenter() {
         return presenter;
     }
 
-    private void initViewStubs(View view){
+    private void initViewStubs(View view) {
         vsError = view.findViewById(vsErrorId);
         vsEmpty = view.findViewById(vsEmptyId);
         vsLoading = view.findViewById(vsLoadingId);
 
-        if (vsError == null || vsEmpty == null || vsLoading == null){
+        if (vsError == null || vsEmpty == null || vsLoading == null) {
             throw new RuntimeException("Please provide state layouts for fragment using setters( aka setErrorViewId(int id) or use default ids for layouts [R.id.vs_error, R.id.vs_empty, R.id.vs_loading])");
         }
     }
 
-    public void setVsErrorId(int vsErrorId) {
+    protected void setVsErrorId(int vsErrorId) {
         this.vsErrorId = vsErrorId;
     }
 
-    public void setVsEmptyId(int vsEmptyId) {
+    protected void setVsEmptyId(int vsEmptyId) {
         this.vsEmptyId = vsEmptyId;
     }
 
-    public void setVsLoadingId(int vsLoadingId) {
+    protected void setVsLoadingId(int vsLoadingId) {
         this.vsLoadingId = vsLoadingId;
     }
 
@@ -91,7 +93,8 @@ public abstract class BasePresenterFragment<P extends BaseContract.BasePresenter
         vsLoading.setVisibility(View.GONE);
 
         vsError.setVisibility(View.VISIBLE);
-        if(message != null)((AppCompatTextView)vsError.findViewById(R.id.tv_error_message)).setText(message);
+        if (message != null)
+            ((AppCompatTextView) vsError.findViewById(R.id.tv_error_message)).setText(message);
     }
 
     @Override
@@ -105,7 +108,8 @@ public abstract class BasePresenterFragment<P extends BaseContract.BasePresenter
         vsLoading.setVisibility(View.GONE);
 
         vsEmpty.setVisibility(View.VISIBLE);
-        if(message != null)((AppCompatTextView)vsEmpty.findViewById(R.id.tv_empty_message)).setText(message);
+        if (message != null)
+            ((AppCompatTextView) vsEmpty.findViewById(R.id.tv_empty_message)).setText(message);
     }
 
     @Override

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.repositories.UsersRepository;
-import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.List;
 
@@ -53,9 +52,9 @@ public class UsersListPresenter implements UsersListContract.Presenter {
         });
     }
 
-    void deleteUser(User user){
+    void deleteUser(User user) {
         usersRepository.removeUserById(user.getUserID());
-        if(usersRepository.getCacheSize() == 0){
+        if (usersRepository.getCacheSize() == 0) {
             view.showEmptyState();
         }
     }

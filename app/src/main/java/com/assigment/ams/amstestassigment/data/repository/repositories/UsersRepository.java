@@ -4,7 +4,6 @@ import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.api.UsersApiService;
 import com.assigment.ams.amstestassigment.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -26,11 +25,10 @@ public class UsersRepository {
 
     public UsersRepository(UsersApiService apiService) {
         this.apiService = apiService;
-        usersList = new ArrayList<>();
     }
 
-    private Single<List<User>> requestUsersList(DisposableSingleObserver<List<User>> observer) {
-        Single<List<User>> single = apiService.getUsers()
+    private void requestUsersList(DisposableSingleObserver<List<User>> observer) {
+        apiService.getUsers()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap(response -> Single.fromCallable(() -> {
@@ -40,17 +38,20 @@ public class UsersRepository {
                 .map(users -> {
                     Collections.sort(users, (o1, o2) -> o1.getLastName().compareToIgnoreCase(o2.getLastName()));
                     return users;
-                });
-        single.subscribe(observer);
-        return single;
+                })
+                .subscribe(observer);
     }
 
-    public Single<List<User>> getUsersList(DisposableSingleObserver<List<User>> observer){
-        if(!usersList.isEmpty()) {
-            return Single.just(usersList);
+    public void getUsersList(DisposableSingleObserver<List<User>> observer) {
+        if (usersList != null) {
+            getListFromCache(observer);
         } else {
-            return requestUsersList(observer);
+            requestUsersList(observer);
         }
+    }
+
+    private void getListFromCache(DisposableSingleObserver<List<User>> observer) {
+        Single.just(usersList).subscribe(observer);
     }
 
     public void printImReady() {
@@ -58,7 +59,7 @@ public class UsersRepository {
     }
 
     public void printListSize() {
-        Utils.DBG("Repo Size > "+usersList.size());
+        Utils.DBG("Repo Size > " + usersList.size());
     }
 
     public void printUsersList() {
@@ -71,10 +72,11 @@ public class UsersRepository {
         }
     }
 
-    public void removeUserById(int userId){
-        for(User user: usersList){
-            if(user.getUserID() == userId) {
+    public void removeUserById(int userId) {
+        for (User user : usersList) {
+            if (user.getUserID() == userId) {
                 usersList.remove(user);
+                Utils.DBG("User deleted user list size = " + usersList.size());
                 return;
             }
         }
