@@ -21,7 +21,6 @@ import com.assigment.ams.amstestassigment.di.main_screen.MainScreenModule;
 import com.assigment.ams.amstestassigment.presentation.common.BasePresenterFragment;
 import com.assigment.ams.amstestassigment.presentation.details_screen.UserDetailsActivity;
 import com.assigment.ams.amstestassigment.presentation.main_screen.listener.ItemAdapterListener;
-import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.List;
 
@@ -80,7 +79,6 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
 
     @Override
     public void onItemShowDetails(User user) {
-        Utils.DBG("Details of > " + user.getFirstName());
         Intent intent = new Intent(getActivity(), UserDetailsActivity.class);
         int id = user.getUserID();
         intent.putExtra(UserDetailsActivity.KEY_USER_ID, id);
@@ -99,6 +97,8 @@ public class UsersListFragment extends BasePresenterFragment<UsersListPresenter>
     @Override
     public void onRefresh() {
         getPresenter().refreshUserList();
+        showProgress();
+        swrUsers.setRefreshing(false);
     }
 
     @Override

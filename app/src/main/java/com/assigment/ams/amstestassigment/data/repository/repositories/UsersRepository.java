@@ -4,7 +4,6 @@ import android.support.annotation.Nullable;
 
 import com.assigment.ams.amstestassigment.data.model.User;
 import com.assigment.ams.amstestassigment.data.repository.api.UsersApiService;
-import com.assigment.ams.amstestassigment.utils.Utils;
 
 import java.util.Collections;
 import java.util.List;
@@ -60,7 +59,6 @@ public class UsersRepository {
         for (User user : usersList) {
             if (user.getUserID() == userId) {
                 usersList.remove(user);
-                Utils.DBG("User deleted user list size = " + usersList.size());
                 return;
             }
         }
@@ -74,9 +72,5 @@ public class UsersRepository {
             }
         }
         return null;
-    }
-
-    public int getCacheSize() {
-        return usersList.size();
     }
 }

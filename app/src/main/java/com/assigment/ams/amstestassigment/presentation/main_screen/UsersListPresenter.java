@@ -19,6 +19,7 @@ public class UsersListPresenter implements UsersListContract.Presenter {
     private GetUsersUseCase getUsersUseCase;
     private RemoveUserUseCase removeUserUsecase;
     private UsersListContract.View view;
+    private DisposableSingleObserver<List<User>> observer;
 
     public UsersListPresenter(GetUsersUseCase getUsersUseCase, RemoveUserUseCase removeUserUsecase) {
         this.getUsersUseCase = getUsersUseCase;
@@ -36,8 +37,10 @@ public class UsersListPresenter implements UsersListContract.Presenter {
 
     @Override
     public void getData() {
-        if(view.isAvailable()) view.showProgress();
-        getUsersUseCase.executeUseCase(getDataObserver(), false);
+        if (view.isAvailable()) view.showProgress();
+        if (observer == null || observer.isDisposed()) {
+            getUsersUseCase.executeUseCase(getDataObserver(), false);
+        }
     }
 
     void deleteUser(@NonNull User user) {
@@ -49,17 +52,20 @@ public class UsersListPresenter implements UsersListContract.Presenter {
     }
 
     private DisposableSingleObserver<List<User>> getDataObserver() {
-        return new DisposableSingleObserver<List<User>>() {
+        observer = new DisposableSingleObserver<List<User>>() {
             @Override
             public void onSuccess(List<User> users) {
-                if(view.isAvailable()) view.setData(users);
+                if (view.isAvailable()) view.setData(users);
+                observer.dispose();
             }
 
             @Override
             public void onError(Throwable e) {
                 //TODO Error handling layer
                 view.onError();
+                observer.dispose();
             }
         };
+        return observer;
     }
 }
