@@ -1,4 +1,5 @@
-# Deprecated. This solution has pretty old code. Check other one's more up to date.
+# Deprecated. 
+This solution has pretty old code. Check other one's more up to date.
 
 Hi, this project is my implementation of test assigment. I would like to underline the fact that my main purpose was to create understandable and robust architecture, so UI of an app is quite simple.
 
